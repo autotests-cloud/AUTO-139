@@ -1,9 +1,11 @@
 package cloud.autotests.tests;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
 
 import static cloud.autotests.helpers.DriverHelper.getConsoleLogs;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,16 +16,17 @@ public class AppTests extends TestBase {
     @Description("Soon to be implemented by QA.GURU engineers")
     @DisplayName("Test for https://expload.com")
     void generatedTest() {
+
         step("Open https://expload.com/", () -> {
-            // todo
+            open("https://expload.com/");
         });
 
         step("Documentation page should be opened", () -> {
-            // todo
+            $(".btn__text").shouldHave(text("Getting started")).click();
         });
 
         step("Overview main page should be opened", () -> {
-            // todo
+            $("#overview").shouldBe(Condition.visible);
         });
     }
 
