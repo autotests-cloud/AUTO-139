@@ -5,10 +5,12 @@ import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
 
 import static cloud.autotests.helpers.DriverHelper.getConsoleLogs;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
+import static org.aspectj.bridge.Version.getText;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.error.ShouldBe.shouldBe;
 
 
 public class AppTests extends TestBase {
@@ -22,11 +24,15 @@ public class AppTests extends TestBase {
         });
 
         step("Documentation page should be opened", () -> {
-            $(".btn__text").shouldHave(text("Getting started")).click();
+            if($(".active-link").getText().equals(text("ru"))) {
+                $(".active-link").shouldHave(text("ru")).click();
+                $(".btn__info").shouldHave(text("Документация")).click();
+            }
+            else $(".btn__info").shouldHave(text("Documentation")).click();
         });
 
         step("Overview main page should be opened", () -> {
-            $("#overview").shouldBe(Condition.visible);
+            $("#overview").shouldBe(visible);
         });
     }
 
